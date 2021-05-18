@@ -1,11 +1,11 @@
-FROM bde2020/spark-submit:3.0.0-hadoop3.2
+FROM datadrone/spark-submit:3.1.1-hadoop3.2-rapids
 
 LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>"
 
 ARG SBT_VERSION
 ENV SBT_VERSION=${SBT_VERSION:-1.3.12}
 
-RUN wget -O - https://piccolo.link/sbt-1.3.12.tgz | gunzip | tar -x -C /usr/local
+RUN wget -O - https://github.com/sbt/sbt/releases/download/v1.3.12/sbt-1.3.12.tgz | gunzip | tar -x -C /usr/local
 
 ENV PATH /usr/local/sbt/bin:${PATH}
 
