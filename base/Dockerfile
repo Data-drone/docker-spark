@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.1.1-devel-ubuntu20.04
+FROM nvidia/cuda:11.0.3-devel-ubuntu20.04
 
 LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>"
 
@@ -30,7 +30,11 @@ RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y curl b
 RUN mkdir /opt/sparkRapidsPlugin
 RUN wget -O /opt/sparkRapidsPlugin/rapids-4-spark_2.12-0.5.0.jar https://repo1.maven.org/maven2/com/nvidia/rapids-4-spark_2.12/0.5.0/rapids-4-spark_2.12-0.5.0.jar
 RUN wget -O /opt/sparkRapidsPlugin/cudf-0.19.2-cuda11.jar https://repo1.maven.org/maven2/ai/rapids/cudf/0.19.2/cudf-0.19.2-cuda11.jar
-RUN wget -O /opt/sparkRapidsPlugin/getGpusResources.sh https://github.com/apache/spark/blob/master/examples/src/main/scripts/getGpusResources.sh
+RUN wget -O /opt/sparkRapidsPlugin/getGpusResources.sh https://raw.githubusercontent.com/apache/spark/master/examples/src/main/scripts/getGpusResources.sh
+
+RUN chmod u+x /opt/sparkRapidsPlugin/getGpusResources.sh \
+      && chmod u+x /opt/sparkRapidsPlugin/rapids-4-spark_2.12-0.5.0.jar \
+      && chmod u+x /opt/sparkRapidsPlugin/cudf-0.19.2-cuda11.jar
 
 #Give permission to execute scripts
 RUN chmod +x /wait-for-step.sh && chmod +x /execute-step.sh && chmod +x /finish-step.sh
